@@ -150,7 +150,10 @@ function Detail(){
         const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
         if(firstDate - secondDate < 0 ){
             return 'Expried to do task'
-        }else return  `${diffDays} days left to complete`;
+        }else if(date1 === ''){
+            return 'No update date to do task'
+        }else
+            return  `${diffDays} days left to complete`;
     }
     function handleClickOpen(id){
         localStorage.setItem('smid',id);
