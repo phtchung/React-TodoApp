@@ -9,5 +9,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="@types/bootstrap" level="application" />
+    <orderEntry type="library" name="@types/javascript-astar" level="application" />
+    <orderEntry type="library" name="aaaa" level="application" />
   </component>
 </module>

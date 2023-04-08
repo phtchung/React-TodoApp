@@ -1,0 +1,27 @@
+.search_bar{
+     margin-right: 18px;
+     width: 150%;
+}
+
+.form_width{
+     width: 30%;
+}
+body{
+     text-align: unset;
+}
+.App{
+     text-align: unset;
+}
+
+.my-toast{
+     float: right;
+     position: absolute;
+     top: -560px;
+     right:-788px;
+     z-index: 9999;
+}
+
+.toast-parent{
+     position: relative;
+
+}
