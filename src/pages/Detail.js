@@ -2,7 +2,7 @@ import React, { useState,useEffect} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Home.css"
 import {Link, useParams} from "react-router-dom";
-import {Container} from "@mui/material";
+import {AppBar, Container, IconButton, Stack, Toolbar, Typography} from "@mui/material";
 import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
 import {TextField} from "@mui/material";
 import {MenuItem} from "@mui/material";
@@ -13,6 +13,8 @@ import Button from "@mui/material/Button";import Dialog from '@mui/material/Dial
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
+
 
 
 const status = [
@@ -141,7 +143,15 @@ function Detail(){
     //     }
 
     // }
-
+    function getDate(date1, date2) {
+        const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+        const firstDate = new Date(date1);
+        const secondDate = new Date(date2);
+        const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+        if(firstDate - secondDate < 0 ){
+            return 'Expried to do task'
+        }else return  `${diffDays} days left to complete`;
+    }
     function handleClickOpen(id){
         localStorage.setItem('smid',id);
         console.log('alo')
@@ -210,16 +220,32 @@ function Detail(){
 
     return(
         <Container className="container-fluid">
-            <h2>User ID: {todoId}</h2>
-            <Link to='/'>Go Home</Link>
+            <AppBar position='static' >
+                <Toolbar>
+                    <IconButton size='large' edge='start' color='inherit' aria-label='logo'>
+                        <CatchingPokemonIcon></CatchingPokemonIcon>
+                    </IconButton>
+                    <Typography variant='h6' component='div' sx={{flexGrow:1}}>
+                        <a href="/" color='inherit' className=" nav-link">Todo App</a>
+                    </Typography>
+                    <Stack direction='row' spacing={2}>
+                        <Button color='inherit'>
+                            <a href="/" color='inherit' className=" nav-link">Home</a>
+                        </Button>
+                        <Button color='inherit'>About</Button>
+                    </Stack>
+                </Toolbar>
+            </AppBar>
+            {/*<h2>User ID: {todoId}</h2>*/}
+            {/*<Link to='/'>Go Home</Link>*/}
             <div className="row mt-4">
                 <div className="col-xl-6 col-sm-6 mb-xl-0 mb-4 mt-4">
                     <div className="card">
                         <div className="card-header p-3 pt-2 d-flex flex-column">
                             <div className="icon icon-lg icon-shape bg-gradient-primary shadow-primary  border-radius-xl mt-n4 d-flex align-items-center justify-content-between ">
-                                <div className="align-items-center d-flex justify-content-lg-center">
-                                    <i className="material-icons opacity-10">person</i>
-                                    <h3> {tempArr[todoindex].name}</h3>
+                                <div className="align-items-center d-flex justify-content-lg-center ">
+                                    <i className="material-icons opacity-10 icon">person</i>
+                                    <h3 className="task-name"> {tempArr[todoindex].name}</h3>
                                 </div>
                                 <BorderColorRoundedIcon className="btn-outline-darkn" style={{cursor:"pointer"}} onClick={handleEdit}></BorderColorRoundedIcon>
 
@@ -314,12 +340,12 @@ function Detail(){
                                         <Progress type="circle" percent={parseInt(item.smTaskProgress) }  />
                                     </div>
                                     <div className="card-body">
-                                        <h6 className="mb-0 ">{item.smTaskId}</h6>
+                                        <h6 className="mb-0 ">{item.smTaskName}</h6>
 
                                         <hr className="dark horizontal"/>
                                         <div className="d-flex ">
                                             <i className="material-icons text-sm my-auto me-1">schedule</i>
-                                            <p className="mb-0 text-sm"> campaign sent 2 days ago </p>
+                                            <p className="mb-0 text-sm" >  {getDate(item.smDateDone,new Date())} </p>
                                         </div>
                                         <div>
                                             <Button size="small" onClick={() => handleClickOpen(item.smTaskId)} className="float-end mt-2">Update</Button>
