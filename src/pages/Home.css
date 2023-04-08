@@ -25,3 +25,10 @@ body{
      position: relative;
 
 }
+.task-name{
+     font-size: 1.4rem;
+}
+
+.icon{
+     margin-right: 10px;
+}
