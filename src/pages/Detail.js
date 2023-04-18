@@ -1,7 +1,7 @@
 import React, { useState,useEffect} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Home.css"
-import {Link, useParams} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import {AppBar, Container, IconButton, Stack, Toolbar, Typography} from "@mui/material";
 import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
 import {TextField} from "@mui/material";
@@ -78,7 +78,6 @@ const progress = [
     }
 ];
 
-let initialized = false;
 
 function Detail(){
     let { todoId } = useParams();
@@ -88,7 +87,6 @@ function Detail(){
     const [smTaskProgress,setsmTaskProgress] = useState('')
     const [smTaskName,setsmTaskName] = useState('')
     const [smDateDone, setsmDateDone] = useState('');
-    // const [smId,setsmId] = useState('')
     const [disableEdit,setDisableEdit] = useState(true)
     const handleEdit = () => setDisableEdit(!disableEdit);
     const [open, setOpen] = React.useState(false);
@@ -101,13 +99,13 @@ function Detail(){
         localStorage.setItem('smArrTask',JSON.stringify(smArr));
         localStorage.setItem('subArrTask',JSON.stringify(temp1))
     }, [temp1]);
+
     var temp1 = smArr.filter(obj => obj.id === todoId)
     console.log(temp1)
-    if(temp1.length == 0 ){
+    if(temp1.length === 0 ){
         console.log('chạy cái này')
         const lengthsmData = JSON.parse(localStorage.getItem('smArrTask') || "[]").length
         console.log(lengthsmData)
-        // smtempArr = JSON.parse(localStorage.getItem('smArrTask'))
 
         for(let i = lengthsmData ; i < (lengthsmData + parseInt(tempArr[todoindex].count)); i++){
             temp1.push({smTaskId : i, id:todoId , smTaskName:"",smDateDone:"",smTaskProgress:0})
@@ -157,7 +155,6 @@ function Detail(){
     }
     function handleClickOpen(id){
         localStorage.setItem('smid',id);
-        console.log('alo')
         console.log(id)
 
         var temp2 = JSON.parse(localStorage.getItem('subArrTask'))
@@ -176,7 +173,7 @@ function Detail(){
     const handleAddClose = () => {
         console.log('Button was Add');
         const temp_id = localStorage.getItem('smid')
-        console.log(temp_id)
+        // console.log(temp_id)
         var subindex1 = temp1.findIndex(obj => obj.smTaskId === parseInt(temp_id))
         console.log(subindex1)
         console.log(temp1)
@@ -187,7 +184,6 @@ function Detail(){
         console.log(temp1)
         smArr[temp_id] = temp1[subindex1]
         localStorage.setItem('smArrTask',JSON.stringify(smArr))
-        // console.log(smtempArr)
         console.log(smArr)
         setOpen(false);
     };
