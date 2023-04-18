@@ -71,7 +71,13 @@ function Home(){
     const [tableData, setTableData] = useState(JSON.parse(localStorage.getItem('Data')) || []);
     const [taskCount, setTaskCount] = useState('');
     const [open, setOpen] = React.useState(false);
-    const [id, setId] = useState(JSON.parse(localStorage.getItem('Data') || "[]").length );
+    const [id, setId] = useState(() => {
+        const dataArr = JSON.parse(localStorage.getItem('Data')) || []
+        if(dataArr.length === 0){
+            return 1
+        }
+        return dataArr[dataArr.length-1].id + 1
+    })
     // useEffect(() => {
     //     const storedData = localStorage.getItem('Data');
     //     if (storedData) {
@@ -118,7 +124,10 @@ function Home(){
         if (index !== -1) {
             temp_arr.splice(index, 1);
         }
+        // const temp_smarr = JSON.parse(localStorage.getItem('smArrTask'))
+        // const filteredsmArr = temp_smarr.filter(obj => obj.smTaskId !== temp_id);
         localStorage.setItem('Data',JSON.stringify(temp_arr))
+        // localStorage.setItem('smArrTask',JSON.stringify(filteredsmArr))
         setTableData(temp_arr);
         handleClose1()
     }
@@ -173,21 +182,6 @@ return(
                 </Stack>
             </Toolbar>
         </AppBar>
-        {/*<nav className="navbar navbar-expand-lg navbar-light bg-light">*/}
-        {/*    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"*/}
-        {/*            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">*/}
-        {/*        <span className="navbar-toggler-icon"></span>*/}
-        {/*    </button>*/}
-
-
-        {/*    <div className="collapse navbar-collapse d-flex justify-content-around" id="navbarTogglerDemo03">*/}
-
-        {/*        <form className="form-inline my-2 my-lg-0 d-flex form_width">*/}
-        {/*            <input className="form-control search_bar" type="search" placeholder="Search" aria-label="Search"/>*/}
-        {/*                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>*/}
-        {/*        </form>*/}
-        {/*    </div>*/}
-        {/*</nav>*/}
 
         <div className="m-auto">
 
